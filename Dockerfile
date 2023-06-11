@@ -13,14 +13,17 @@ COPY src ./src
 # Build the application
 RUN mvn clean package -DskipTests
 
-FROM tomcat:9.0-jdk8-openjdk-slim
+# Use the official Tomcat image as the runtime environment
+FROM tomcat:8.5-jdk8-openjdk-slim
 
-# Change ownership of the copied files
-RUN chown -R root:root /usr/local/tomcat/webapps
-
+# Remove the default Tomcat webapps
 RUN rm -rf /usr/local/tomcat/webapps/*
-COPY --chown=root:root ./target/demo.war /usr/local/tomcat/webapps/ROOT.war
+
+# Copy the WAR file from the build environment to the runtime environment
+COPY --from=build target/demo.war /usr/local/tomcat/webapps/ROOT.war
+
+# Expose the default Tomcat port
 EXPOSE 8080
-CMD ["catalina.sh","run"]
 
-
+# Start Tomcat
+CMD ["catalina.sh", "run"]
