@@ -1,9 +1,6 @@
 # Use the official Apache Maven image as the build environment
 FROM maven:3.8.3-openjdk-8-slim AS build
 
-# Set the working directory
-WORKDIR /app
-
 # Copy the pom.xml file to the container
 COPY pom.xml .
 
