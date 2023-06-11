@@ -1,7 +1,25 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/scenic-patrol-389508/demoServiceImg', '.']
+    args:
+      - 'build'
+      - '-t'
+      - 'gcr.io/scenic-patrol-389508/demoServiceImg'
+      - '-f'
+      - 'Dockerfile'
+      - '.'
+    timeout: '600s' # Optional: Increase the timeout if needed
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/scenic-patrol-389508/demoServiceImg']
+    args:
+      - 'push'
+      - 'gcr.io/scenic-patrol-389508/demoServiceImg'
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['run', 'deploy', 'demo-service', '--image', 'gcr.io/scenic-patrol-389508/demoServiceImg', '--platform', 'managed', '--region', 'asia-south2']
+    args:
+      - 'run'
+      - 'deploy'
+      - 'demo-service'
+      - '--image'
+      - 'gcr.io/scenic-patrol-389508/demoServiceImg'
+      - '--platform'
+      - 'managed'
+      - '--region'
+      - 'asia-south2'
