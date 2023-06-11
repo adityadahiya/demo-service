@@ -3,7 +3,7 @@ steps:
     args:
       - 'build'
       - '-t'
-      - 'gcr.io/scenic-patrol-389508/demoServiceImg'
+      - 'gcr.io/scenic-patrol-389508/demo-app'
       - '-f'
       - 'Dockerfile'
       - '.'
@@ -11,14 +11,14 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'gcr.io/scenic-patrol-389508/demoServiceImg'
+      - 'gcr.io/scenic-patrol-389508/demo-app'
   - name: 'gcr.io/cloud-builders/gcloud'
     args:
       - 'run'
       - 'deploy'
-      - 'demo-service'
+      - 'demo-app'
       - '--image'
-      - 'gcr.io/scenic-patrol-389508/demoServiceImg'
+      - 'gcr.io/scenic-patrol-389508/demo-app'
       - '--platform'
       - 'managed'
       - '--region'
